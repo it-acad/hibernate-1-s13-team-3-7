@@ -37,7 +37,7 @@ public class ToDo {
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+  //  @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     @NotNull
     private User owner;
 
@@ -45,6 +45,7 @@ public class ToDo {
     private List<Task> tasks;
 
     public ToDo() {
+        this.createdAt=LocalDateTime.now();
     }
 
     public long getId() {
