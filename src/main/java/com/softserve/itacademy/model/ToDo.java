@@ -30,11 +30,12 @@ public class ToDo {
 
     @NotBlank(message = "The titleName cannot be empty")
     @Column(nullable = false)
+    @NonNull
     private String title;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
+    @NonNull
     private LocalDateTime createdAt;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
