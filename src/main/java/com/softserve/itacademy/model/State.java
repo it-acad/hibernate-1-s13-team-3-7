@@ -18,7 +18,6 @@ public class State {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-    @JoinColumn(name = "state_id")
     private List<Task> taskList;
 
     public State(){

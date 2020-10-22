@@ -1,9 +1,11 @@
 package com.softserve.itacademy.model;
 
- import org.hibernate.annotations.GenericGenerator;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
