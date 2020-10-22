@@ -35,11 +35,9 @@ public class User  {
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "owner")
-    @JoinColumn(name = "owner_id")
     private List<ToDo> toDoList;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
     private Role role;
 
     public User(){
