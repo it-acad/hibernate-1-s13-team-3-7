@@ -2,7 +2,6 @@ package com.softserve.itacademy.model;
 
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -30,16 +29,16 @@ public class ToDo {
 
     @NotBlank(message = "The titleName cannot be empty")
     @Column(nullable = false)
-    @NonNull
+    @NotNull
     private String title;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
-    @NonNull
+    @NotNull
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
-    @NonNull
+    @NotNull
     private User owner;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
