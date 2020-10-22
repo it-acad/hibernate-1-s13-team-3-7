@@ -1,11 +1,10 @@
 package com.softserve.itacademy.model;
 
-import com.sun.xml.bind.v2.TODO;
-import org.hibernate.annotations.GenericGenerator;
+ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-
+@Entity
 public class Task {
 
 
@@ -58,16 +57,16 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "todo_id")
-    private TODO todo;
+    private ToDo todo;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "state_id")
     private State state;
 
-    public TODO getTodo() {
+    public ToDo getTodo() {
         return todo;
     }
 
-    public void setTodo(TODO todo) {
+    public void setTodo(ToDo todo) {
         this.todo = todo;
     }
 
