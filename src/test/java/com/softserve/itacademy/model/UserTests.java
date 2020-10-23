@@ -139,7 +139,8 @@ public class UserTests {
                 Arguments.of("1ADas<24", "1ADas<24"),
                 Arguments.of("1ADas>*24", "1ADas>*24"),
                 Arguments.of("1ADas?24", "1ADas?24"),
-                Arguments.of(" lklk78", " lklk78")
+                Arguments.of(" lklk78", " lklk78"),
+                Arguments.of("", "")
         );
     }
 
@@ -164,7 +165,8 @@ public class UserTests {
         return Stream.of(
                 Arguments.of("invalid", "invalid"),
                 Arguments.of("Invalid-", "Invalid-"),
-                Arguments.of("Invalid-invalid", "Invalid-invalid")
+                Arguments.of("Invalid-invalid", "Invalid-invalid"),
+                Arguments.of("", "")
         );
     }
 
