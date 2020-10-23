@@ -2,18 +2,15 @@ package com.softserve.itacademy.model;
 
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-
 @Entity
 @Table(name = "todos")
 public class ToDo {
-
     @Id
     @GeneratedValue(generator = "sequence-generator")
     @GenericGenerator(
@@ -25,48 +22,46 @@ public class ToDo {
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             }
     )
+    @Column(name = "id")
     private long id;
-
     @NotBlank(message = "The titleName cannot be empty")
     @Column(nullable = false)
     @NotNull
     private String title;
-
     @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     @NotNull
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+    //@JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+    //@JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     @NotNull
     private User owner;
+
+
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task> tasks;
 
     public ToDo() {
+        this.createdAt=LocalDateTime.now();
     }
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -79,6 +74,14 @@ public class ToDo {
         this.owner = owner;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public String toString() {
         return "ToDo{" +
@@ -88,14 +91,11 @@ public class ToDo {
                 ", owner=" + owner +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ToDo toDo = (ToDo) o;
-
         if (getId() != toDo.getId()) return false;
         if (getTitle() != null ? !getTitle().equals(toDo.getTitle()) : toDo.getTitle() != null) return false;
         if (getCreatedAt() != null ? !getCreatedAt().equals(toDo.getCreatedAt()) : toDo.getCreatedAt() != null)
@@ -103,7 +103,6 @@ public class ToDo {
         if (getOwner() != null ? !getOwner().equals(toDo.getOwner()) : toDo.getOwner() != null) return false;
         return tasks != null ? tasks.equals(toDo.tasks) : toDo.tasks == null;
     }
-
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));

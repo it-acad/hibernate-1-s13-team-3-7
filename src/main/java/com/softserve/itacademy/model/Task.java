@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tasks")
@@ -31,6 +32,10 @@ public class Task {
 
     public Task() {
     }
+
+    @Column(name = "name")
+    @NotNull
+    public String name;
 
     public long getId() {
         return id;
