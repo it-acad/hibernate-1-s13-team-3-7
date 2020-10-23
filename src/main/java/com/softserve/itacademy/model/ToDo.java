@@ -37,9 +37,12 @@ public class ToDo {
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-  //  @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     @NotNull
     private User owner;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
+    private Set<User> collaborators;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Task> tasks;
@@ -80,6 +83,22 @@ public class ToDo {
         this.owner = owner;
     }
 
+    public Set<User> getCollaborators() {
+        return collaborators;
+    }
+
+    public void setCollaborators(Set<User> collaborators) {
+        this.collaborators = collaborators;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     @Override
     public String toString() {
         return "ToDo{" +
@@ -87,6 +106,8 @@ public class ToDo {
                 ", title='" + title + '\'' +
                 ", createdAt=" + createdAt +
                 ", owner=" + owner +
+                ", collaborators=" + collaborators +
+                ", tasks=" + tasks +
                 '}';
     }
 
@@ -98,19 +119,21 @@ public class ToDo {
         ToDo toDo = (ToDo) o;
 
         if (getId() != toDo.getId()) return false;
-        if (getTitle() != null ? !getTitle().equals(toDo.getTitle()) : toDo.getTitle() != null) return false;
-        if (getCreatedAt() != null ? !getCreatedAt().equals(toDo.getCreatedAt()) : toDo.getCreatedAt() != null)
+        if (!getTitle().equals(toDo.getTitle())) return false;
+        if (!getCreatedAt().equals(toDo.getCreatedAt())) return false;
+        if (!getOwner().equals(toDo.getOwner())) return false;
+        if (collaborators != null ? !collaborators.equals(toDo.collaborators) : toDo.collaborators != null)
             return false;
-        if (getOwner() != null ? !getOwner().equals(toDo.getOwner()) : toDo.getOwner() != null) return false;
         return tasks != null ? tasks.equals(toDo.tasks) : toDo.tasks == null;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + (getTitle() != null ? getTitle().hashCode() : 0);
-        result = 31 * result + (getCreatedAt() != null ? getCreatedAt().hashCode() : 0);
-        result = 31 * result + (getOwner() != null ? getOwner().hashCode() : 0);
+        result = 31 * result + getTitle().hashCode();
+        result = 31 * result + getCreatedAt().hashCode();
+        result = 31 * result + getOwner().hashCode();
+        result = 31 * result + (collaborators != null ? collaborators.hashCode() : 0);
         result = 31 * result + (tasks != null ? tasks.hashCode() : 0);
         return result;
     }

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -37,11 +38,13 @@ public class User  {
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "owner")
     private List<ToDo> toDoList;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "collaborators")
+    private Set<ToDo> collaboratorsToDoList;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
     public User(){
-
     }
 
     public int getId() {
@@ -98,6 +101,14 @@ public class User  {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<ToDo> getCollaboratorsToDoList() {
+        return collaboratorsToDoList;
+    }
+
+    public void setCollaboratorsToDoList(Set<ToDo> collaboratorsToDoList) {
+        this.collaboratorsToDoList = collaboratorsToDoList;
     }
 
     @Override
