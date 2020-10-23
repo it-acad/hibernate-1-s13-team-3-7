@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -45,12 +44,9 @@ public class UserTests {
         user.setLastName("Valid-Name");
         user.setPassword("qwQW12!@");
         user.setRole(traineeRole);
-
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
-
         assertEquals(0, violations.size());
     }
 
@@ -59,7 +55,6 @@ public class UserTests {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(validUser);
-
         assertEquals(0, violations.size());
     }
 
@@ -72,7 +67,6 @@ public class UserTests {
         user.setLastName("Valid-Name");
         user.setPassword("qwQW12!@");
         user.setRole(traineeRole);
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -98,7 +92,6 @@ public class UserTests {
         user.setLastName("Valid-Name");
         user.setPassword("qwQW12!@");
         user.setRole(traineeRole);
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<User>> violations = validator.validate(user);
@@ -110,7 +103,64 @@ public class UserTests {
         return Stream.of(
                 Arguments.of("invalid", "invalid"),
                 Arguments.of("Invalid-", "Invalid-"),
-                Arguments.of("Invalid-invalid", "Invalid-invalid")
+                Arguments.of("Invalid-invalid", "Invalid-invalid"),
+                Arguments.of("", ""),
+                Arguments.of("IvaN", "IvaN")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidPassword")
+    void constraintViolationInvalidPassword(String input, String errorValue) {
+        User user = new User();
+        user.setEmail(validUser.getEmail());
+        user.setFirstName("Valid-Name");
+        user.setLastName("Valid-Name");
+        user.setPassword(input);
+        user.setRole(traineeRole);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertEquals(1, violations.size());
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+
+    private static Stream<Arguments> provideInvalidPassword(){
+        return Stream.of(
+                Arguments.of("123kll(l", "123kll(l"),
+                Arguments.of("_1134==dJk", "_1134==dJk"),
+                Arguments.of("1ADas<?24", "1ADas<?24"),
+                Arguments.of("1ADas<24", "1ADas<24"),
+                Arguments.of("1ADas>*24", "1ADas>*24"),
+                Arguments.of("1ADas?24", "1ADas?24"),
+                Arguments.of(" lklk78", " lklk78"),
+                Arguments.of("", "")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidLastNameUser")
+    void constraintViolationInvalidLastName(String input, String errorValue) {
+        User user = new User();
+        user.setEmail(validUser.getEmail());
+        user.setFirstName("Valid-Name");
+        user.setLastName(input);
+        user.setPassword("qwQW12!@");
+        user.setRole(traineeRole);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        assertEquals(1, violations.size());
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+
+    private static Stream<Arguments> provideInvalidLastNameUser(){
+        return Stream.of(
+                Arguments.of("invalid", "invalid"),
+                Arguments.of("Invalid-", "Invalid-"),
+                Arguments.of("Invalid-invalid", "Invalid-invalid"),
+                Arguments.of("", ""),
+                Arguments.of("KovaLenko", "KovaLenko")
         );
     }
 
