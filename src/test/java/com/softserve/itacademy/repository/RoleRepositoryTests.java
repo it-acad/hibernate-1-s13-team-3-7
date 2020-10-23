@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -27,6 +27,17 @@ public class RoleRepositoryTests {
         role.setName("NEW");
         role = roleRepository.save(role);
         assertEquals(10, role.getId());
+    }
+
+    @Test
+    public void deleteRole() {
+        Role role = new Role();
+        role.setName("NEW");
+        role = roleRepository.save(role);
+        long id = role.getId();
+        roleRepository.delete(role);
+
+        assertFalse(roleRepository.findById(id).isPresent());
     }
 
 }
