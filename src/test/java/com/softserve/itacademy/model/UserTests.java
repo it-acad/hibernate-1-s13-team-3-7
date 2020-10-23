@@ -110,7 +110,9 @@ public class UserTests {
         return Stream.of(
                 Arguments.of("invalid", "invalid"),
                 Arguments.of("Invalid-", "Invalid-"),
-                Arguments.of("Invalid-invalid", "Invalid-invalid")
+                Arguments.of("Invalid-invalid", "Invalid-invalid"),
+                Arguments.of("", ""),
+                Arguments.of("IvaN", "IvaN")
         );
     }
 
@@ -166,7 +168,8 @@ public class UserTests {
                 Arguments.of("invalid", "invalid"),
                 Arguments.of("Invalid-", "Invalid-"),
                 Arguments.of("Invalid-invalid", "Invalid-invalid"),
-                Arguments.of("", "")
+                Arguments.of("", ""),
+                Arguments.of("KovaLenko", "KovaLenko")
         );
     }
 
