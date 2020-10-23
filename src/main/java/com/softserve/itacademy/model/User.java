@@ -31,14 +31,19 @@ public class User  {
     @Column(name = "first_name")
     @NotNull
     @Pattern(regexp = "[A-Z][a-z]+\\-[A-Z][a-z]+")
+    @NotBlank
     private String firstName;
 
     @Column(name = "last_name")
     @NotNull
+    @NotBlank
+    @Pattern(regexp = "[A-Z][a-z]+\\-[A-Z][a-z]+")
     private String lastName;
 
     @Column(name = "password")
     @NotNull
+    @NotBlank
+    @Pattern(regexp = "[\\d\\w\\@\\!\\*\\%\\.]+")
     private String password;
 
     @Column(name = "email")
