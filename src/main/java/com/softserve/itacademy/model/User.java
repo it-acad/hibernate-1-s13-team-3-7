@@ -36,13 +36,13 @@ public class User  {
 
     @Column(name = "last_name")
     @NotNull
-    @NotBlank
+    //@NotBlank
     @Pattern(regexp = "[A-Z][a-z]+\\-[A-Z][a-z]+")
     private String lastName;
 
     @Column(name = "password")
     @NotNull
-    @NotBlank
+    //@NotBlank
     @Pattern(regexp = "[\\d\\w\\@\\!\\*\\%\\.]+")
     private String password;
 

@@ -4,7 +4,9 @@ package com.softserve.itacademy.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tasks")
@@ -24,14 +26,14 @@ public class Task {
     )
     private long id;
 
-    @NotBlank(message = "The name cannot be empty")
+
     @Column(name = "name")
     @NotNull
-    @Size(min = 3, max = 200, message
-            = "Name must be between 3 and 200 characters")
+    @Size(min = 3,max = 20)
+    //@NotBlank(message = "The name cannot be empty")
     private String name;
 
-    @NotBlank(message = "The priority cannot be empty")
+    //@NotBlank(message = "The priority cannot be empty")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Priority priority;
