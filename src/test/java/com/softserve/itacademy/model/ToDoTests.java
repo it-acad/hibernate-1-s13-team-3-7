@@ -22,15 +22,8 @@ class ToDoTests {
     @BeforeAll
     static void init() {
         owner = new User();
-        validToDo = new ToDo();
-        validToDo.setTitle("Valid title");
-        validToDo.setOwner(owner);
     }
 
-    @Test
-    void toDoWithNotEmptyTitle() {
-
-    }
     @Test
     void constraintViolationOnEmptyRoleName() {
         ToDo emptyTitleToDo = new ToDo();
@@ -42,6 +35,7 @@ class ToDoTests {
         Set<ConstraintViolation<ToDo>> violations = validator.validate(emptyTitleToDo);
         assertEquals(1, violations.size());
     }
+
     @Test
     void constraintViolationOnNullOwner() {
         ToDo toDoWithoutOwner = new ToDo();

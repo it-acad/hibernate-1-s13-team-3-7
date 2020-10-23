@@ -3,7 +3,9 @@ package com.softserve.itacademy.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +28,8 @@ public class State {
 
     @Column(name = "name")
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9-\\- _]{0,20}$")
+    @NotBlank(message = "The State name cannot be empty")
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
