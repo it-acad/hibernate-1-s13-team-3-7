@@ -1,10 +1,8 @@
 package com.softserve.itacademy.model;
 
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -18,7 +16,6 @@ class ToDoTests {
     private static User owner;
     private static ToDo validToDo;
 
-
     @BeforeAll
     static void init() {
         owner = new User();
@@ -29,7 +26,6 @@ class ToDoTests {
         ToDo emptyTitleToDo = new ToDo();
         emptyTitleToDo.setTitle("");
         emptyTitleToDo.setOwner(owner);
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<ToDo>> violations = validator.validate(emptyTitleToDo);
@@ -40,7 +36,6 @@ class ToDoTests {
     void constraintViolationOnNullOwner() {
         ToDo toDoWithoutOwner = new ToDo();
         toDoWithoutOwner.setTitle("Title");
-
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<ToDo>> violations = validator.validate(toDoWithoutOwner);

@@ -1,6 +1,5 @@
 package com.softserve.itacademy.model;
 
-
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

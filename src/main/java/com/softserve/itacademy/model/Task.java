@@ -1,17 +1,13 @@
 package com.softserve.itacademy.model;
 
-
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tasks")
 public class Task {
-
 
     @Id
     @GeneratedValue(generator = "sequence-generator")
@@ -26,14 +22,11 @@ public class Task {
     )
     private long id;
 
-
     @Column(name = "name")
     @NotNull
     @Size(min = 3, max = 20)
-    //@NotBlank(message = "The name cannot be empty")
     private String name;
 
-    //@NotBlank(message = "The priority cannot be empty")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Priority priority;
