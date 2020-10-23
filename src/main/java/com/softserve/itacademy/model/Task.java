@@ -25,6 +25,11 @@ public class Task {
     )
     private long id;
 
+    @NotBlank(message = "The name cannot be empty")
+    @Column(name = "name")
+    @NotNull
+    private String name;
+
     @NotBlank(message = "The priority cannot be empty")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -32,10 +37,6 @@ public class Task {
 
     public Task() {
     }
-
-    @Column(name = "name")
-    @NotNull
-    public String name;
 
     public long getId() {
         return id;
@@ -86,6 +87,14 @@ public class Task {
         this.state = state;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,6 +103,7 @@ public class Task {
         Task task = (Task) o;
 
         if (getId() != task.getId()) return false;
+        if (getName() != null ? !getName().equals(task.getName()) : task.getName() != null) return false;
         if (getPriority() != task.getPriority()) return false;
         if (getTodo() != null ? !getTodo().equals(task.getTodo()) : task.getTodo() != null) return false;
         return getState() != null ? getState().equals(task.getState()) : task.getState() == null;
@@ -102,10 +112,13 @@ public class Task {
     @Override
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getPriority() != null ? getPriority().hashCode() : 0);
         result = 31 * result + (getTodo() != null ? getTodo().hashCode() : 0);
         result = 31 * result + (getState() != null ? getState().hashCode() : 0);
         return result;
     }
+
+
     //
 }
