@@ -44,11 +44,11 @@ public class ToDo {
     @JoinTable(name = "todo_collaborator", joinColumns = @JoinColumn(name = "todo_id"), inverseJoinColumns = @JoinColumn(name = "collaborator_id"))
     private Set<User> collaborators;
 
-    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
 
     public ToDo() {
-        this.createdAt=LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     public long getId() {

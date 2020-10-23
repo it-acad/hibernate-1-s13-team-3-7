@@ -29,7 +29,7 @@ public class Task {
 
     @Column(name = "name")
     @NotNull
-    @Size(min = 3,max = 20)
+    @Size(min = 3, max = 20)
     //@NotBlank(message = "The name cannot be empty")
     private String name;
 

@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User  {
+public class User {
 
     @Id
     @GeneratedValue(generator = "sequence-generator")
@@ -52,7 +52,7 @@ public class User  {
     @Email
     private String email;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "owner")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<ToDo> toDoList;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "collaborators")
@@ -61,8 +61,7 @@ public class User  {
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
-    public User(){
-
+    public User() {
     }
 
     public int getId() {

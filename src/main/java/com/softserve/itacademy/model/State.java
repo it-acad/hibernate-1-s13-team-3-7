@@ -35,7 +35,7 @@ public class State {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
     private List<Task> taskList;
 
-    public State(){
+    public State() {
 
     }
 
