@@ -1,5 +1,7 @@
 package com.softserve.itacademy.model;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -9,10 +11,13 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class StateTests {
@@ -39,4 +44,27 @@ class StateTests {
 
         );
     }
+
+    @Test
+    void testStateSetterGetter() {
+        State state = new State();
+        int id = 1;
+        String name = "State";
+        List<Task> taskList = new ArrayList<>();
+        state.setName(name);
+        state.setId(id);
+        state.setTaskList(taskList);
+        Assertions.assertSame(id,state.getId());
+        Assertions.assertSame(name,state.getName());
+        Assertions.assertSame(taskList,state.getTaskList());
+    }
+
+    @Test
+    void testStateEqualsHashCode() {
+        State state = new State();
+        State state1 = new State();
+        assertEquals(state, state1);
+        assertEquals(state.hashCode(), state1.hashCode());
+    }
+
 }

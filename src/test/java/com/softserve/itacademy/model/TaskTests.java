@@ -1,5 +1,7 @@
 package com.softserve.itacademy.model;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,6 +13,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class TaskTests {
@@ -34,6 +37,34 @@ public class TaskTests {
                 Arguments.of("In this message over 20 symbols", "In this message over 20 symbols"),
                 Arguments.of("", "")
         );
+    }
+
+    @Test
+    void testTaskSetterGetter() {
+        Task task = new Task();
+        State state = new State();
+        ToDo toDo = new ToDo();
+        long id = 1;
+        String name = "Task";
+        Priority priority = Priority.HIGH;
+        task.setName(name);
+        task.setPriority(priority);
+        task.setId(id);
+        task.setState(state);
+        task.setTodo(toDo);
+        Assertions.assertSame(id,task.getId());
+        Assertions.assertSame(name,task.getName());
+        Assertions.assertSame(priority,task.getPriority());
+        Assertions.assertSame(state,task.getState());
+        Assertions.assertSame(toDo,task.getTodo());
+    }
+
+    @Test
+    void testTaskEqualsHashCode() {
+        Task task = new Task();
+        Task task1 = new Task();
+        assertEquals(task,task1);
+        assertEquals(task.hashCode(),task1.hashCode());
     }
 
 }
