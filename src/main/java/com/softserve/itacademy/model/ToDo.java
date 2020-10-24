@@ -99,18 +99,6 @@ public class ToDo {
     }
 
     @Override
-    public String toString() {
-        return "ToDo{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", createdAt=" + createdAt +
-                ", owner=" + owner +
-                ", collaborators=" + collaborators +
-                ", tasks=" + tasks +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

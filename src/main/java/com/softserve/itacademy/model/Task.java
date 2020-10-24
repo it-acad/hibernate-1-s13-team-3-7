@@ -50,16 +50,6 @@ public class Task {
         this.priority = priority;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", priority=" + priority +
-                ", todo=" + todo +
-                ", state=" + state +
-                '}';
-    }
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "todo_id")
     private ToDo todo;
